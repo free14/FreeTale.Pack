@@ -21,11 +21,11 @@ namespace FreeTale.Pack
         /// <summary>
         /// node name.
         /// </summary>
-        Writeable Name { get; set; }
+        Writable Name { get; set; }
 
         /// <summary>
         /// node value.
         /// </summary>
-        Writeable Value { get; set; }
+        Writable Value { get; set; }
     }
 }

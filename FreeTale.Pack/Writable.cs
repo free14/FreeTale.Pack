@@ -7,8 +7,14 @@ namespace FreeTale.Pack
     /// <summary>
     /// writeable value. string/int/float/array
     /// </summary>
-    public class Writeable 
+    public class Writable 
     {
+
+        public static Writable Null { get { return new Writable(); } }
+
+        /// <summary>
+        /// value object
+        /// </summary>
         public object Value { get; set; }
 
         /// <summary>
@@ -95,54 +101,54 @@ namespace FreeTale.Pack
             return ToString();
         }
 
-        public static implicit operator Writeable(string value)
+        public static implicit operator Writable(string value)
         {
-            Writeable ins = new Writeable()
+            Writable ins = new Writable()
             {
                 Value = value
             };
             return ins;
         }
 
-        public static implicit operator Writeable(int value)
+        public static implicit operator Writable(int value)
         {
-            Writeable ins = new Writeable()
+            Writable ins = new Writable()
             {
                 Value = value
             };
             return ins;
         }
 
-        public static implicit operator Writeable(long value)
+        public static implicit operator Writable(long value)
         {
-            Writeable ins = new Writeable()
+            Writable ins = new Writable()
             {
                 Value = value
             };
             return ins;
         }
 
-        public static implicit operator Writeable(float value)
+        public static implicit operator Writable(float value)
         {
-            Writeable ins = new Writeable()
+            Writable ins = new Writable()
             {
                 Value = value
             };
             return ins;
         }
 
-        public static implicit operator Writeable(double value)
+        public static implicit operator Writable(double value)
         {
-            Writeable ins = new Writeable()
+            Writable ins = new Writable()
             {
                 Value = value
             };
             return ins;
         }
 
-        public static implicit operator Writeable(bool value)
+        public static implicit operator Writable(bool value)
         {
-            Writeable ins = new Writeable()
+            Writable ins = new Writable()
             {
                 Value = value
             };

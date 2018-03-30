@@ -8,7 +8,7 @@ namespace FreeTale.Pack
     {
         public INode[] SubNode { get; set; }
         public IAttribute[] Attribute { get; set; }
-        public Writeable Name { get; set; }
-        public Writeable Value { get; set; }
+        public Writable Name { get; set; }
+        public Writable Value { get; set; }
     }
 }

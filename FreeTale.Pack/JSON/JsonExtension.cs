@@ -20,6 +20,7 @@ namespace FreeTale.Pack.JSON
             string name = unpacker.ReadQuoteString();
             Node node = new Node();
             node.Name = name;
+            
         }
 
         

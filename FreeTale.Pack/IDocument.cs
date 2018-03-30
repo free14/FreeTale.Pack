@@ -12,11 +12,11 @@ namespace FreeTale.Pack
         /// <summary>
         /// document comment
         /// </summary>
-        Writeable Comment { get; set; }
+        Writable Comment { get; set; }
         /// <summary>
         /// document version
         /// </summary>
-        Writeable Version { get; set; }
+        Writable Version { get; set; }
         /// <summary>
         /// Document subnode 
         /// </summary>

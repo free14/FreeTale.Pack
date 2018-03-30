@@ -9,10 +9,10 @@ namespace FreeTale.Pack
         /// <summary>
         /// attribute name
         /// </summary>
-        Writeable Name { get; set; }
+        Writable Name { get; set; }
         /// <summary>
         /// attribute value
         /// </summary>
-        Writeable Value { get; set; }
+        Writable Value { get; set; }
     }
 }
