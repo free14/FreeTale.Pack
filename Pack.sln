@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTale.Pack", "Freetale.Pack\FreeTale.Pack.csproj", "{DB618026-F7D9-492C-A152-0B3CE1BCBB4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTale.Pack.Test", "FreeTale.Pack.Test\FreeTale.Pack.Test.csproj", "{8BEAFE07-01BB-485C-836D-B76CC224D5A0}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB618026-F7D9-492C-A152-0B3CE1BCBB4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB618026-F7D9-492C-A152-0B3CE1BCBB4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB618026-F7D9-492C-A152-0B3CE1BCBB4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB618026-F7D9-492C-A152-0B3CE1BCBB4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BEAFE07-01BB-485C-836D-B76CC224D5A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BEAFE07-01BB-485C-836D-B76CC224D5A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BEAFE07-01BB-485C-836D-B76CC224D5A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BEAFE07-01BB-485C-836D-B76CC224D5A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
