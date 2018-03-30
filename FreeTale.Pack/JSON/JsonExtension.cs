@@ -17,7 +17,9 @@ namespace FreeTale.Pack.JSON
         private static INode ReadObject(this Unpacker unpacker)
         {
             unpacker.SkipWhiteSpace();
-            
+            string name = unpacker.ReadQuoteString();
+            Node node = new Node();
+            node.Name = name;
         }
 
         

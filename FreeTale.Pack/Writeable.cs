@@ -94,5 +94,59 @@ namespace FreeTale.Pack
             }
             return ToString();
         }
+
+        public static implicit operator Writeable(string value)
+        {
+            Writeable ins = new Writeable()
+            {
+                Value = value
+            };
+            return ins;
+        }
+
+        public static implicit operator Writeable(int value)
+        {
+            Writeable ins = new Writeable()
+            {
+                Value = value
+            };
+            return ins;
+        }
+
+        public static implicit operator Writeable(long value)
+        {
+            Writeable ins = new Writeable()
+            {
+                Value = value
+            };
+            return ins;
+        }
+
+        public static implicit operator Writeable(float value)
+        {
+            Writeable ins = new Writeable()
+            {
+                Value = value
+            };
+            return ins;
+        }
+
+        public static implicit operator Writeable(double value)
+        {
+            Writeable ins = new Writeable()
+            {
+                Value = value
+            };
+            return ins;
+        }
+
+        public static implicit operator Writeable(bool value)
+        {
+            Writeable ins = new Writeable()
+            {
+                Value = value
+            };
+            return ins;
+        }
     }
 }
