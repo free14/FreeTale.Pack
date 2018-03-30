@@ -12,6 +12,6 @@ namespace FreeTale.Pack
         Float,
         Array,
         String,
-        Unknow
+        Unknow,
     }
 }

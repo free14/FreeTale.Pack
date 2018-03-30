@@ -67,6 +67,8 @@ namespace FreeTale.Pack
                 return "null";
             if (IsString)
                 return (string)Value;
+            if (IsBool)
+                return (bool)Value ? "true" : "false";
             return Value.ToString();
         }
 

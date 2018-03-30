@@ -66,7 +66,7 @@ namespace FreeTale.Pack.Test
         public void Init()
         {
             unpacker = new Unpacker();
-            unpacker.Prepare("{\"a\":10,\"c\" :{\"b\":-0.5}}");
+            unpacker.Prepare("{\"a\":10,\"c\":{\"b\":-0.5}}");
         }
 
         [TestMethod]
