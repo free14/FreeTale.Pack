@@ -12,12 +12,12 @@ namespace FreeTale.Pack
         /// <summary>
         /// child node
         /// </summary>
-        INode[] SubNode { get; set; }
+        List<INode> SubNode { get; set; }
 
         /// <summary>
         /// node attribute. for langage like XML
         /// </summary>
-        IAttribute[] Attribute { get; set; }
+        List<IAttribute> Attribute { get; set; }
         /// <summary>
         /// node name.
         /// </summary>
@@ -27,5 +27,19 @@ namespace FreeTale.Pack
         /// node value.
         /// </summary>
         Writable Value { get; set; }
+
+        /// <summary>
+        /// get or set value by index.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        INode this[int index] { get;set; }
+
+        /// <summary>
+        /// get or set subnode by name
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        INode this[string index] { get;set; }
     }
 }

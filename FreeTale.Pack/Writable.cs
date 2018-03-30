@@ -44,10 +44,29 @@ namespace FreeTale.Pack
         /// </summary>
         public bool IsComment { get; set; }
 
+        public DataType DataType {
+            get
+            {
+                if (IsNull)
+                    return DataType.Null;
+                if (IsFloat)
+                    return DataType.Float;
+                if (IsInt)
+                    return DataType.Int;
+                if (IsBool)
+                    return DataType.Bool;
+                if (IsString)
+                    return DataType.String;
+                return DataType.Unknow;
+            }
+        }
+
         public override string ToString()
         {
             if (IsNull)
                 return "null";
+            if (IsString)
+                return (string)Value;
             return Value.ToString();
         }
 

@@ -217,7 +217,10 @@ namespace FreeTale.Pack
                     }
                     escape = false;
                 }
-                
+                else
+                {
+                    sb.Append(c);
+                }
             }
             return sb.ToString();
         }
@@ -309,7 +312,7 @@ namespace FreeTale.Pack
                 }
                 else
                 {
-                    throw new FormatException(string.Format("invalid '{0}' char. at line:{1} col:{2}", c,LineCount,CollumCount));
+                    throw new FormatException(string.Format("invalid '{0}' char.", c));
                 }
 
                 minusable = false;
