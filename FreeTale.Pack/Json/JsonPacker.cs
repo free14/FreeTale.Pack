@@ -4,6 +4,18 @@ using System.Text;
 
 namespace FreeTale.Pack.Json
 {
+    /// <summary>
+    /// json packer class
+    /// </summary>
+    /// <remarks>
+    /// Json feature
+    /// <para>Node : pack as JSON object or "name":"value"</para>
+    /// <para>Attribute : not include</para>
+    /// <para>Writeable : quote string integer float</para>
+    /// <para>Document : not include</para>
+    /// <para>Comment : not include</para>
+    /// <para>Array : create from Node without name</para>
+    /// </remarks>
     public class JsonPacker : Packer
     {
         public INode Node;
