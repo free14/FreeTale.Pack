@@ -16,15 +16,14 @@ using FreeTale.Pack.Json;
 Read
 ```c#
 string data = File.ReadAllText("data.json");
-Unpacker unpacker = new Unpacker();
-unpacker.Prepare(data);
+Unpacker unpacker = new Unpacker(data);
 INode node = unpacker.JsonDocument();
 ```
 
 Write
 ```c#
 INode node = new Node();
-node.Value = "Hello";
+node.Add("Hello","World");
 string data = node.JsonPack(false);
 ```
 
