@@ -46,5 +46,13 @@ namespace FreeTale.Pack
         /// <param name="index"></param>
         /// <returns></returns>
         INode this[string index] { get;set; }
+
+        /// <summary>
+        /// safe add subnode avoid SubNode is null
+        /// </summary>
+        /// <param name="node">Sub Node to add</param>
+        void Add(INode node);
+
+        void Add(Writable name, Writable value);
     }
 }

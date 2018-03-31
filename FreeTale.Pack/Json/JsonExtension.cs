@@ -37,10 +37,11 @@ namespace FreeTale.Pack.Json
         /// </list>
         /// </para>
         /// </summary>
+        /// <param name="min">remove white space</param>
         /// <remarks>
         /// Root <see cref="INode"/> not include name in this format
         /// </remarks>
-        public static string JsonPack(this INode node, bool min)
+        public static string JsonPack(this INode node, bool min = false)
         {
             JsonPacker packer = new JsonPacker();
             packer.Reset();

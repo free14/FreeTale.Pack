@@ -43,5 +43,17 @@ namespace FreeTale.Pack
         public Writable Name { get; set; }
         public Writable Value { get; set; }
         public bool IsComment { get; set; }
+
+        public void Add(INode node)
+        {
+            if (SubNode == null)
+                SubNode = new List<INode>();
+            SubNode.Add(node);
+        }
+
+        public void Add(Writable name, Writable value)
+        {
+            Add(new Node(name, value));
+        }
     }
 }

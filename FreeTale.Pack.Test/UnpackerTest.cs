@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FreeTale.Pack.Test
@@ -14,6 +15,7 @@ namespace FreeTale.Pack.Test
         {
             unpacker = new Unpacker();
             unpacker.Prepare("0123456     Hello! \n World");
+            
         }
 
         [TestMethod]

@@ -18,6 +18,10 @@ namespace FreeTale.Pack.Test
             Unpacker unpacker = new Unpacker();
             unpacker.Prepare(Json);
             node = unpacker.JsonDocument();
+            INode n = new Node();
+            n.Value = "Hello";
+            node.JsonPack();
+
         }
         [TestMethod]
         public void Pack()

@@ -9,8 +9,9 @@ namespace FreeTale.Pack
     /// </summary>
     public class Unpacker
     {
+        #region field
         /// <summary>
-        /// 
+        /// input string
         /// </summary>
         public string input;
 
@@ -46,6 +47,20 @@ namespace FreeTale.Pack
         /// indent of line has successful read?
         /// </summary>
         protected bool ReadIndent;
+
+        #endregion
+
+        public Unpacker()
+        {
+            Reset();
+        }
+
+        public Unpacker(string input)
+        {
+            Reset();
+            this.input = input;
+        }
+
         /// <summary>
         /// prepare input and randy to process 
         /// </summary>

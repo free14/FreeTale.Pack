@@ -6,6 +6,8 @@ namespace FreeTale.Pack
 {
     public class Node : INode
     {
+
+
         #region indexer
         
         public INode this[int index] {
@@ -46,5 +48,30 @@ namespace FreeTale.Pack
         public Writable Name { get; set; }
         public Writable Value { get; set; }
         public bool IsComment { get; set; }
+
+        #region constructer
+
+        public Node() { }
+        public Node(Writable name,Writable value)
+        {
+            Name = name;
+            Value = value;
+        }
+
+        #endregion
+
+        public void Add(INode node)
+        {
+            if (SubNode == null)
+                SubNode = new List<INode>();
+            SubNode.Add(node);
+        }
+
+        public void Add(Writable name, Writable value)
+        {
+            Add(new Node(name, value));
+        }
+
+
     }
 }
