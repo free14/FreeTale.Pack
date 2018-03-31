@@ -7,7 +7,7 @@ namespace FreeTale.Pack
     /// <summary>
     /// for some format require document
     /// </summary>
-    public interface IDocument
+    public interface IDocument : INode
     {
         /// <summary>
         /// document comment
@@ -17,9 +17,6 @@ namespace FreeTale.Pack
         /// document version
         /// </summary>
         Writable Version { get; set; }
-        /// <summary>
-        /// Document subnode 
-        /// </summary>
-        INode[] SubNode { get; set; }
+        
     }
 }

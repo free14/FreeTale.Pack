@@ -61,6 +61,7 @@ namespace FreeTale.Pack.Json
         /// </remarks>
         /// <param name="unpacker"></param>
         /// <returns><see cref="Node"/> of json</returns>
+        /// <exception cref="FormatException">document invalid format <seealso cref="Unpacker.LineCount"/> to find where error locate</exception>
         public static INode JsonDocument(this Unpacker unpacker)
         {
             if (unpacker.Peek() != '{')

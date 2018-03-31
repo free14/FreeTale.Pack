@@ -65,12 +65,21 @@ namespace FreeTale.Pack
         }
 
         /// <summary>
-        /// move to next line
+        /// move to next line. if format is new line sensitive use <see cref="ForceWriteLine"/>
         /// </summary>
         public void WriteLine()
         {
-            builder.AppendLine();
+            if(!IgnoreWhitespace)
+                builder.AppendLine();
             HasIndent = false;
+        }
+
+        /// <summary>
+        /// move to nextline ignore <see cref="IgnoreWhitespace"/> setting. use for new line sensitive format
+        /// </summary>
+        public void ForceWriteLine()
+        {
+            builder.AppendLine();
         }
 
         /// <summary>

@@ -33,6 +33,16 @@ namespace FreeTale.Pack
         public int Indent { get; protected set; }
 
         /// <summary>
+        /// current position is out of input
+        /// </summary>
+        public bool IsEnd => Position >= input.Length;
+
+        /// <summary>
+        /// current position is last char of input
+        /// </summary>
+        public bool IsLast => Position + 2 == input.Length;
+
+        /// <summary>
         /// indent of line has successful read?
         /// </summary>
         protected bool ReadIndent;
@@ -91,6 +101,23 @@ namespace FreeTale.Pack
         }
 
         /// <summary>
+        /// read from current position to new line or end of input
+        /// </summary>
+        /// <returns>string exclude new line char</returns>
+        public string ReadLine()
+        {
+            string result = ReadUntil('\n');
+            if(!IsLast)
+                Read(); // skip \n
+            if (result[result.Length - 1] == '\r')
+            {
+                //exclude for \r\n
+                result = result.Substring(0, result.Length - 1);
+            }
+            return result;
+        }
+
+        /// <summary>
         /// read by spacify length
         /// </summary>
         /// <param name="length"></param>
@@ -133,7 +160,7 @@ namespace FreeTale.Pack
         public string ReadString()
         {
             int beginPosition = Position;
-            char c = ReadNext();
+            char c = Peek();
             while (c == '_' || char.IsLetterOrDigit(c))
             {
                 c = ReadNext();
@@ -145,11 +172,11 @@ namespace FreeTale.Pack
         /// read string by spacify allow character
         /// </summary>
         /// <param name="allowChar">allow character</param>
-        /// <returns>string</returns>
+        /// <returns>string allow</returns>
         public string ReadString(string allowChar)
         {
             int beginPosition = Position;
-            char c = ReadNext();
+            char c = Peek();
             while (allowChar.IndexOf(c) != -1)
             {
                 c = ReadNext();
@@ -161,7 +188,7 @@ namespace FreeTale.Pack
         /// <summary>
         /// read string inside quote with defualt string format (json string)
         /// </summary>
-        /// <returns></returns>
+        /// <returns>string with out quote</returns>
         public string ReadQuoteString()
         {
             char c = Read();
@@ -356,6 +383,25 @@ namespace FreeTale.Pack
             if (current == "null")
                 return true;
             throw new FormatException("null format must be null.");
+        }
+
+        /// <summary>
+        /// read string and stop at breakchar or end of input
+        /// </summary>
+        /// <param name="breakchar"></param>
+        /// <returns></returns>
+        /// <example>
+        /// "012345678" position at 0 ReadUntil('6') return 012345 and set position at 6
+        /// </example>
+        public string ReadUntil(char breakchar)
+        {
+            int beginPosition = Position;
+            char c = Peek();
+            while (c != breakchar && !IsLast)
+            {
+                c = ReadNext();
+            }
+            return input.Substring(beginPosition, Position - beginPosition);
         }
 
         /// <summary>
