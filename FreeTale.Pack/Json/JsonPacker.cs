@@ -6,15 +6,36 @@ namespace FreeTale.Pack.Json
 {
     /// <summary>
     /// json packer class
+    /// <para>
+    /// <list type="bullet">
+    /// <item>
+    /// <term><see cref="INode"/></term>
+    /// <description>pack as JSON object or "name":"value"</description>
+    /// </item>
+    /// <item>
+    /// <term><see cref="IAttribute"/></term>
+    /// <description>ignore</description>
+    /// </item>
+    /// <item>
+    /// <term><see cref="Writable"/></term>
+    /// <description>quote string integer float</description>
+    /// </item>
+    /// <item>
+    /// <term><see cref="IDocument"/></term>
+    /// <desicription>ignore</desicription></item>
+    /// <item>
+    /// <term><see cref="INode.IsComment"/></term>
+    /// <description>Node not include</description>
+    /// </item>
+    /// <item>
+    /// <term>Array</term>
+    /// <description>Node without name will see as array element</description>
+    /// </item>
+    /// </list>
+    /// </para>
     /// </summary>
     /// <remarks>
-    /// Json feature
-    /// <para>Node : pack as JSON object or "name":"value"</para>
-    /// <para>Attribute : not include</para>
-    /// <para>Writeable : quote string integer float</para>
-    /// <para>Document : not include</para>
-    /// <para>Comment : not include</para>
-    /// <para>Array : create from Node without name</para>
+    /// Root <see cref="INode"/> not include name in this format
     /// </remarks>
     public class JsonPacker : Packer
     {
