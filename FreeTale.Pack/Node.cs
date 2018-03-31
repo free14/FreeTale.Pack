@@ -45,5 +45,6 @@ namespace FreeTale.Pack
         public List<IAttribute> Attribute { get; set; }
         public Writable Name { get; set; }
         public Writable Value { get; set; }
+        public bool IsComment { get; set; }
     }
 }

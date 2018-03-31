@@ -29,6 +29,11 @@ namespace FreeTale.Pack
         Writable Value { get; set; }
 
         /// <summary>
+        /// node is flag as comment
+        /// </summary>
+        bool IsComment { get; set; }
+
+        /// <summary>
         /// get or set value by index.
         /// </summary>
         /// <param name="index"></param>

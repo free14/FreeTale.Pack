@@ -29,14 +29,20 @@ namespace FreeTale.Pack.Json
         {
             WriteLine("{");
             Indent++;
+            bool firstvlaue = true;
             for (int i = 0; i < node.SubNode.Count; i++)
             {
-                WriteNameValue(node[i]);
-                if (i + 1 != node.SubNode.Count)
+                if (!node[i].IsComment)
                 {
-                    //not end of array
-                    Write(",");
-                    WriteSpace();
+                    if(!firstvlaue)
+                    {
+                        //first value
+                        Write(",");
+                        WriteSpace();
+
+                    }
+                    WriteNameValue(node[i]);
+                    firstvlaue = false;
                 }
             }
             Indent--;
@@ -56,16 +62,18 @@ namespace FreeTale.Pack.Json
         {
             WriteLine("[");
             Indent++;
+            bool firstvalue = true;
             for (int i = 0; i < array.Length; i++)
             {
-                WriteValue(array[i]);
-                if(i + 1 != array.Length)
+                if (!array[i].IsComment)
                 {
-                    //not end of array
-                    Write(",");
-                    WriteSpace();
+                    if (!firstvalue)
+                    {
+                        Write(",");
+                        WriteSpace();
+                    }
+                    WriteValue(array[i]);
                 }
-                    
             }
             Indent--;
             WriteLine("]");
