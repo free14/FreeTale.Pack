@@ -111,7 +111,7 @@ namespace FreeTale.Pack.Ini
                         int index = line.IndexOf('=');
                         Node node = new Node()
                         {
-                            Name = line.Substring(0, index - 1),
+                            Name = line.Substring(0, index),
                             Value = line.Substring(index + 1)
                         };
                         currentSection.Add(node);
