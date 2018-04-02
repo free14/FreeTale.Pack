@@ -72,7 +72,10 @@ namespace FreeTale.Pack.Json
 
         public void WriteNameValue(INode node)
         {
-            Write(node.Name.ToQuoteString());
+            if (node.Name.IsString)
+                Write(node.Name.ToQuoteString());
+            else
+                Write(node.Name.ToString());
             WriteSpace();
             Write(":");
             WriteSpace();

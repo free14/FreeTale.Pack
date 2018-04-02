@@ -115,16 +115,16 @@ namespace FreeTale.Pack
         }
 
         /// <summary>
-        /// if <see cref="Value"/> type is string will replace spcial character and insert quote
+        /// if <see cref="Value"/> type is string will replace spcial character. and insert quote
         /// </summary>
-        /// <returns>string with quote. or string if <see cref="Value"/> is not string</returns>
+        /// <returns>string with quote.</returns>
         public string ToQuoteString()
         {
+            StringBuilder sb = new StringBuilder();
+            sb.Append('"');
             if (IsString)
             {
                 string value = (string)this.Value;
-                StringBuilder sb = new StringBuilder(value.Length + 2);
-                sb.Append('"');
                 for (int i = 0; i < value.Length; i++)
                 {
                     switch (value[i])
@@ -158,10 +158,12 @@ namespace FreeTale.Pack
                             break;
                     }
                 }
-                sb.Append('"');
-                return sb.ToString();
             }
-            return ToString();
+            else
+                Value.ToString();
+            sb.Append('"');
+            return sb.ToString();
+            
         }
 
         public static implicit operator Writable(string value)
