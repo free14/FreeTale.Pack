@@ -116,7 +116,8 @@ namespace FreeTale.Pack.Json
             else
             {
                 //is array
-                WriteArray(node.SubNode.ToArray());
+                if(node.SubNode != null)
+                    WriteArray(node.SubNode.ToArray());
             }
         }
         

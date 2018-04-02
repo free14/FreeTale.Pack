@@ -23,6 +23,7 @@ namespace FreeTale.Pack.Test
             node.JsonPack();
 
         }
+
         [TestMethod]
         public void Pack()
         {

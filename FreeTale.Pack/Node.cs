@@ -9,8 +9,6 @@ namespace FreeTale.Pack
     /// </summary>
     public class Node : INode
     {
-
-
         #region indexer
         
         public INode this[int index] {
@@ -109,6 +107,13 @@ namespace FreeTale.Pack
             }
         }
 
+        public void AddAttribute(Writable name, Writable value)
+        {
+            if (Attribute == null)
+                Attribute = new List<IAttribute>();
+            Attribute.Add(new Attribute(name, value));
+        }
+
         public void Merge(INode other)
         {
             if (other.SubNode == null)
@@ -139,9 +144,9 @@ namespace FreeTale.Pack
             }
         }
 
-        #endregion
-
         
+
+        #endregion
 
     }
 }

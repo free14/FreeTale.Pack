@@ -194,5 +194,35 @@ namespace FreeTale.Pack
             };
             return ins;
         }
+
+
+        public override bool Equals(object obj)
+        {
+            if (object.ReferenceEquals(obj, null))
+                return false;
+            if (obj is Writable right)
+            {
+                if (this.IsString && right.IsString)
+                    return (string)Value == (string)right.Value;
+                return right.Value == this.Value;
+            }
+            return false;
+        }
+
+        public static bool operator ==(Writable left, Writable right)
+        {
+            if (object.ReferenceEquals(left,null) || object.ReferenceEquals(right,null))
+                return false;
+            if (left.IsString && right.IsString)
+                return (string)left.Value == (string)right.Value;
+            return left.Value == right.Value;
+        }
+
+        public static bool operator !=(Writable left, Writable right)
+        {
+            if (object.ReferenceEquals(left, null) && object.ReferenceEquals(right, null))
+                return false;
+            return !left.Equals(right);
+        }
     }
 }

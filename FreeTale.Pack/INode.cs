@@ -68,6 +68,13 @@ namespace FreeTale.Pack
         void Add(Writable[] name, Writable value);
 
         /// <summary>
+        /// safe add attribute by name value
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        void AddAttribute(Writable name, Writable value);
+
+        /// <summary>
         /// merge this node with other node. subnode with same name will override
         /// </summary>
         /// <param name="other">other node</param>

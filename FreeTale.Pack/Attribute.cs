@@ -11,5 +11,11 @@ namespace FreeTale.Pack
     {
         public Writable Name { get; set; }
         public Writable Value { get; set; }
+
+        public Attribute(Writable name,Writable value)
+        {
+            Name = name;
+            Value = value;
+        }
     }
 }

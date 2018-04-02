@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTale.Pack", "Freetale.Pack\FreeTale.Pack.csproj", "{DB618026-F7D9-492C-A152-0B3CE1BCBB4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeTale.Pack", "Freetale.Pack\FreeTale.Pack.csproj", "{DB618026-F7D9-492C-A152-0B3CE1BCBB4B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTale.Pack.Test", "FreeTale.Pack.Test\FreeTale.Pack.Test.csproj", "{8BEAFE07-01BB-485C-836D-B76CC224D5A0}"
 EndProject
