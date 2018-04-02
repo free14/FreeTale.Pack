@@ -16,9 +16,13 @@ namespace FreeTale.Pack.Xml
             if (Peek() == '?')
             {
                 ReadUntil('>'); //skip xml header
+                SkipWhiteSpace();
+                document.Add(ReadNode());
             }
-            SkipWhiteSpace();
-            document.SubNode = ReadAnySubNode();
+            else
+            {
+                document.Add(ReadNode());
+            }
             return document;
         }
 
@@ -85,7 +89,7 @@ namespace FreeTale.Pack.Xml
                 }
                 SkipWhiteSpace();
             }
-            throw new FormatException("section");
+            return node;
         }
 
         /// <summary>

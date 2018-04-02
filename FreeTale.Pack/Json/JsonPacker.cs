@@ -109,7 +109,10 @@ namespace FreeTale.Pack.Json
             if (node.Value != null)
             {
                 //is has value
-                WriteLine(node.Value.ToQuoteString());
+                if(node.Value.IsString)
+                    WriteLine(node.Value.ToQuoteString());
+                else
+                    WriteLine(node.Value.ToString());
             }
             else if (node.SubNode != null && node[0].Name != null)
             {

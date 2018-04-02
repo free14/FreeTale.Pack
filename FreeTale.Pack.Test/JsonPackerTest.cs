@@ -25,7 +25,7 @@ namespace FreeTale.Pack.Test
         }
 
         [TestMethod]
-        public void Pack()
+        public void JsonPack()
         {
             string repack = node.JsonPack(true);
             Assert.AreEqual(repack,Json);

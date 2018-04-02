@@ -53,6 +53,7 @@
     <Compile Include="NodeReflectionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnpackerTest.cs" />
+    <Compile Include="XmlTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
