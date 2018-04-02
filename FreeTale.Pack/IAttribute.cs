@@ -4,6 +4,9 @@ using System.Text;
 
 namespace FreeTale.Pack
 {
+    /// <summary>
+    /// attribute of <see cref="INode"/>
+    /// </summary>
     public interface IAttribute
     {
         /// <summary>

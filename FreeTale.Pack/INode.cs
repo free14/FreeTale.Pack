@@ -50,9 +50,21 @@ namespace FreeTale.Pack
         /// <summary>
         /// safe add subnode avoid SubNode is null
         /// </summary>
-        /// <param name="node">Sub Node to add</param>
+        /// <param name="node">SubNode to add</param>
         void Add(INode node);
 
+        /// <summary>
+        /// safe add SubNode by name-value
+        /// </summary>
+        /// <param name="name">name of subnode</param>
+        /// <param name="value">value of subnode</param>
         void Add(Writable name, Writable value);
+
+        /// <summary>
+        /// safe add SubNode thas operation create Tree of SubNode
+        /// </summary>
+        /// <param name="name">Name list to add</param>
+        /// <param name="value">value of last node</param>
+        void Add(Writable[] name, Writable value);
     }
 }

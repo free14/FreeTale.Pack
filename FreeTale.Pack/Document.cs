@@ -55,5 +55,34 @@ namespace FreeTale.Pack
         {
             Add(new Node(name, value));
         }
+
+        public void Add(Writable[] name, Writable value)
+        {
+            if (name == null || name.Length == 0)
+                throw new ArgumentNullException("name");
+            Writable[] tree = new Writable[name.Length - 1];
+            Array.Copy(name, tree, tree.Length);
+            INode sub = SubNode.Find((node) => node.Name == name[0]);
+            if (name.Length > 1)
+            {
+                if (sub != null)
+                {
+                    sub.Add(tree, value);
+                }
+                else
+                {
+                    Node node = new Node(name[0], null);
+                    Add(node);
+                    node.Add(tree, value);
+                }
+            }
+            else
+            {
+                if (sub != null)
+                    sub.Value = value;
+                else
+                    Add(name[0], value);
+            }
+        }
     }
 }

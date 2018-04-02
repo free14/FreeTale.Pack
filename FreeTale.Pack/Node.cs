@@ -4,6 +4,9 @@ using System.Text;
 
 namespace FreeTale.Pack
 {
+    /// <summary>
+    /// default class of INode
+    /// </summary>
     public class Node : INode
     {
 
@@ -20,15 +23,18 @@ namespace FreeTale.Pack
         {
             get
             {
-                foreach (INode item in SubNode)
-                {
-                    if (item.Name.IsString && (string)item.Name.Value == index)
-                        return item;
-                }
-                throw new IndexOutOfRangeException();
+                if (SubNode == null)
+                    return null;
+                return SubNode.Find((node) => node.Name.IsString && node.Name.ToString() == index);
             }
             set
             {
+                if(SubNode == null)
+                {
+                    SubNode = new List<INode>();
+                    SubNode.Add(value);
+                    return;
+                }
                 for (int i = 0; i < SubNode.Count; i++)
                 {
                     if(SubNode[i].Name.IsString && (string)SubNode[i].Name.Value == index)
@@ -43,7 +49,7 @@ namespace FreeTale.Pack
 
         #endregion
 
-        public List<INode> SubNode { get; set; }// = new List<INode>();
+        public List<INode> SubNode { get; set; }
         public List<IAttribute> Attribute { get; set; }
         public Writable Name { get; set; }
         public Writable Value { get; set; }
@@ -72,6 +78,33 @@ namespace FreeTale.Pack
             Add(new Node(name, value));
         }
 
-
+        public void Add(Writable[] name, Writable value)
+        {
+            if (name == null || name.Length == 0)
+                throw new ArgumentNullException("name");
+            Writable[] tree = new Writable[name.Length - 1];
+            Array.Copy(name, tree, tree.Length);
+            INode sub = SubNode.Find((node) => node.Name == name[0]);
+            if(name.Length > 1)
+            {
+                if(sub != null)
+                {
+                    sub.Add(tree, value);
+                }
+                else
+                {
+                    Node node = new Node(name[0], null);
+                    Add(node);
+                    node.Add(tree, value);
+                }
+            }
+            else
+            {
+                if (sub != null)
+                    sub.Value = value;
+                else
+                    Add(name[0], value);
+            }
+        }
     }
 }

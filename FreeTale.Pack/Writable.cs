@@ -7,7 +7,7 @@ namespace FreeTale.Pack
     /// <summary>
     /// writeable value. string/int/float/array
     /// </summary>
-    public class Writable 
+    public class Writable
     {
 
         public static Writable Null { get { return new Writable(); } }
@@ -24,7 +24,11 @@ namespace FreeTale.Pack
         /// <summary>
         /// value is integer format.(int/long)
         /// </summary>
-        public bool IsInt { get => Value is int || Value is long; }
+        public bool IsInt
+        {
+            get => Value is short || Value is int || Value is long ||
+                Value is ushort || Value is uint || Value is ulong;
+        } 
         /// <summary>
         /// value is boolean
         /// </summary>
@@ -35,9 +39,24 @@ namespace FreeTale.Pack
         public bool IsFloat { get => Value is float || Value is double || Value is decimal; }
 
         /// <summary>
+        /// value is enum
+        /// </summary>
+        public bool IsEnum { get => Value is Enum; }
+
+        /// <summary>
         /// value is null
         /// </summary>
         public bool IsNull { get => Value == null; }
+
+        /// <summary>
+        /// get value type full name. include namespace
+        /// </summary>
+        /// <returns>fullname of value</returns>
+        public string GetTypeName()
+        {
+            return Value.GetType().FullName;
+        }
+
 
         /// <summary>
         /// Writeable is flag as comment
