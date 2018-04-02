@@ -66,5 +66,14 @@ namespace FreeTale.Pack
         /// <param name="name">Name list to add</param>
         /// <param name="value">value of last node</param>
         void Add(Writable[] name, Writable value);
+
+        /// <summary>
+        /// merge this node with other node. subnode with same name will override
+        /// </summary>
+        /// <param name="other">other node</param>
+        void Merge(INode other);
+
+
+        
     }
 }

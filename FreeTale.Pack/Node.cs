@@ -66,6 +66,8 @@ namespace FreeTale.Pack
 
         #endregion
 
+        #region INode method
+
         public void Add(INode node)
         {
             if (SubNode == null)
@@ -106,5 +108,40 @@ namespace FreeTale.Pack
                     Add(name[0], value);
             }
         }
+
+        public void Merge(INode other)
+        {
+            if (other.SubNode == null)
+                return;
+            if (this.SubNode == null)
+            {
+                SubNode = other.SubNode;
+                return;
+            }
+            foreach (INode item in other.SubNode)
+            {
+                INode sub = this.SubNode.Find((node) => node.Name == item.Name);
+                if(sub != null)
+                {
+                    // found current node with same name
+                    if (item.Value != null)
+                        sub.Value = item.Value;
+
+                    if (item.SubNode != null)
+                        sub.Merge(item);
+                    else
+                        sub = item;
+                }
+                else
+                {
+                    SubNode.Add(item);
+                }
+            }
+        }
+
+        #endregion
+
+        
+
     }
 }

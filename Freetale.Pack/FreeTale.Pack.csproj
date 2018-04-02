@@ -3,6 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>file serializer / deserializer for human readable serialize format</Description>
+    <Version>1.2.0</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <PackageReleaseNotes />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\FreeTale.Pack.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>
