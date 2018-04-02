@@ -52,6 +52,19 @@ namespace FreeTale.Pack
         }
 
         /// <summary>
+        /// write by <see cref="Writable.ToString"/>. ignore if <paramref name="value"/> is null
+        /// </summary>
+        /// <param name="value"></param>
+        public void Write(Writable value)
+        {
+            if(value != null)
+            {
+                WriteIndent();
+                builder.Append(value.ToString());
+            }
+        }
+
+        /// <summary>
         /// write value and move to next line
         /// </summary>
         /// <param name="value"></param>

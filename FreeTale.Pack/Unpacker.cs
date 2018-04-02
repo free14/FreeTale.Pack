@@ -71,6 +71,7 @@ namespace FreeTale.Pack
             Reset();
             
         }
+
         /// <summary>
         /// reset position to beginning of input
         /// </summary>
@@ -81,6 +82,21 @@ namespace FreeTale.Pack
             CollumCount = 1;
             Indent = 0;
         }
+
+        /// <summary>
+        /// copy current unpacker to other instance
+        /// </summary>
+        /// <param name="target"></param>
+        public void CopyTo(Unpacker target)
+        {
+            target.input = input;
+            target.Position = Position;
+            target.LineCount = LineCount;
+            target.CollumCount = CollumCount;
+            target.Indent = Indent;
+        }
+
+        #region read method
 
         /// <summary>
         /// read current char and move cursor position.
@@ -426,5 +442,9 @@ namespace FreeTale.Pack
                 return;
             while (char.IsWhiteSpace(ReadNext())){}
         }
+
+        #endregion
+
+
     }
 }
