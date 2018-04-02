@@ -30,8 +30,13 @@ namespace FreeTale.Pack.Test
             NodeReflection reflection = new NodeReflection();
             
             Node node = reflection.GetReflectNode(commonClass);
-            //Assert.AreEqual((int)node["A"].Value.Value, 30);
-            
+            Assert.AreEqual((int)node["A"].Value.Value, 30);
+            Assert.AreEqual((float)node["B"].Value.Value, 10.5f);
+
+            Common result = reflection.CreateObject<Common>(node);
+            Assert.AreEqual(result.A, commonClass.A);
+            Assert.AreEqual(result.B, commonClass.B);
+
         }
     }
 }

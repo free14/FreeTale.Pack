@@ -27,16 +27,16 @@ namespace FreeTale.Pack
             if (type.IsPrimitive)
             {
                 node.AddAttribute("FieldType", type.FullName);
-                node.Value.Value = obj;
+                node.Value = new Writable(obj);
                 return node;
             }
             FieldInfo[] fieldInfo = type.GetFields(FieldFlag);
             foreach (FieldInfo field in fieldInfo)
             {
                 object fieldValue = field.GetValue(obj);
-                node.Name = field.Name;
-                node.AddAttribute("FieldType", field.FieldType.FullName);
-                node.Add(GetReflectNode(obj));
+                Node sub = GetReflectNode(fieldValue);
+                sub.Name = field.Name;
+                node.Add(sub);
             }
             return node;
         }
@@ -62,12 +62,7 @@ namespace FreeTale.Pack
         /// <param name="instance"></param>
         public T BindObject<T>(INode node,T instance)
         {
-            return (T)BindObject(node, instance);
-        }
-
-        public object BindObject(INode node,object instance)
-        {
-            Type type = instance.GetType();
+            Type type = typeof(T);
             FieldInfo[] fieldInfo = type.GetFields(FieldFlag);
 
             foreach (var field in fieldInfo)
@@ -83,8 +78,9 @@ namespace FreeTale.Pack
                 }
                 else if (sub.SubNode != null)
                 {
-                    object subreuslt = BindObject(sub, field.GetValue(instance));
-                    field.SetValue(instance, subreuslt);
+                    object fieldValue = field.GetValue(instance);
+                    object subResult = BindObject(sub, fieldValue);
+                    field.SetValue(instance, subResult);
                 }
             }
             return instance;

@@ -9,7 +9,9 @@ namespace FreeTale.Pack
     /// </summary>
     public class Writable
     {
-
+        /// <summary>
+        /// get Writeable with Null value
+        /// </summary>
         public static Writable Null { get { return new Writable(); } }
 
         /// <summary>
@@ -63,6 +65,9 @@ namespace FreeTale.Pack
         /// </summary>
         public bool IsComment { get; set; }
 
+        /// <summary>
+        /// get <see cref="Pack.DataType"/> value from type
+        /// </summary>
         public DataType DataType {
             get
             {
@@ -80,6 +85,24 @@ namespace FreeTale.Pack
             }
         }
 
+        /// <summary>
+        /// create as <see cref="Null"/>
+        /// </summary>
+        public Writable() { }
+        
+        /// <summary>
+        /// create with value
+        /// </summary>
+        /// <param name="value"></param>
+        public Writable(object value)
+        {
+            Value = value;
+        }
+
+        /// <summary>
+        /// Convert value to string
+        /// </summary>
+        /// <returns>lowwer case string. except datatype is string.</returns>
         public override string ToString()
         {
             if (IsNull)
@@ -211,11 +234,11 @@ namespace FreeTale.Pack
 
         public static bool operator ==(Writable left, Writable right)
         {
-            if (object.ReferenceEquals(left,null) || object.ReferenceEquals(right,null))
-                return false;
-            if (left.IsString && right.IsString)
-                return (string)left.Value == (string)right.Value;
-            return left.Value == right.Value;
+            if (object.ReferenceEquals(left, null) && object.ReferenceEquals(right, null))
+                return true;
+            else if (!object.ReferenceEquals(left, null))
+                return left.Equals(right);
+            return false;
         }
 
         public static bool operator !=(Writable left, Writable right)

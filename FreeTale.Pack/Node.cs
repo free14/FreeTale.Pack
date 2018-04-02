@@ -23,14 +23,16 @@ namespace FreeTale.Pack
             {
                 if (SubNode == null)
                     return null;
-                return SubNode.Find((node) => node.Name.IsString && node.Name.ToString() == index);
+                return SubNode.Find((node) => node.Name != null && node.Name.IsString && node.Name.ToString() == index);
             }
             set
             {
                 if(SubNode == null)
                 {
-                    SubNode = new List<INode>();
-                    SubNode.Add(value);
+                    SubNode = new List<INode>
+                    {
+                        value
+                    };
                     return;
                 }
                 for (int i = 0; i < SubNode.Count; i++)
@@ -144,7 +146,62 @@ namespace FreeTale.Pack
             }
         }
 
-        
+
+
+        #endregion
+
+        #region override object
+
+        /// <summary>
+        /// convert this node attribute and subnode count to string
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Name == null)
+                sb.Append("null ");
+            else
+            {
+                sb.Append(Name.ToString());
+                sb.Append(" ");
+            }
+            if(Attribute != null)
+            {
+                sb.Append("[");
+                foreach (var item in Attribute)
+                {
+                    if (item.Name == null)
+                        sb.Append("null=");
+                    else
+                    {
+                        sb.Append(item.Name.ToString());
+                        sb.Append("=");
+                    }
+                    if(item.Value == null)
+                        sb.Append("null ");
+                    else
+                    {
+                        sb.Append(item.Value.ToString());
+                        sb.Append(" ");
+                    }
+                }
+                sb.Append("]");
+            }
+
+            sb.Append(":");
+            if (Value != null)
+                sb.Append(Value.ToString());
+            if(SubNode == null)
+            {
+                sb.Append("[null]");
+            }
+            else
+            {
+                sb.AppendFormat("[{0}]", SubNode.Count);
+            }
+            return sb.ToString();
+        }
 
         #endregion
 

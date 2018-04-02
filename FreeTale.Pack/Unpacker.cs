@@ -379,9 +379,7 @@ namespace FreeTale.Pack
                 return double.Parse(num);
             if(flag == 'm')
             {
-                Writable writable = new Writable();
-                writable.Value = decimal.Parse(num);
-                return writable;
+                return new Writable(decimal.Parse(num));
             }
             throw new FormatException(string.Format("invlid flag '{0}'",flag));
         }
