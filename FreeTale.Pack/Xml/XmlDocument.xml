@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<docs>
+  <member name="Xml">
+    <Xml>
+      <summary>
+        xml serlializer
+        feature 
+        <list type="bullet">
+          <item>
+            <term><see ref="INode"/></term>
+            <description>
+              output as Xml node
+            </description>
+          </item>
+          <item>
+            <term>
+              <see ref="IAttribute"/>
+            </term>
+            <description>
+              output as xml attribute all atrribute value insert by quote
+            </description>
+          </item>
+          <item>
+            <term>
+              <see ref="Writable"/>
+            </term>
+            <decritption>
+              string with/without quote depend on location
+            </decritption>
+          </item>
+          <item>
+            <term><see ref="IDocument"/></term>
+            <description>
+              output as xml document.with xml header. not require
+            </description>
+          </item>
+          <item>
+            <term>
+              <see ref="INode.IsComment"/>
+            </term>
+            <description>
+              output as xml comment node
+            </description>
+          </item>
+        </list>
+      </summary>
+    </Xml>
+  </member>
+</docs>

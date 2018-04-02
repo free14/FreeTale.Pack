@@ -10,11 +10,8 @@ namespace FreeTale.Pack.Xml
     /// </summary>
     public static class XmlExtension
     {
-        /// <summary>
-        /// pack document to xml format
-        /// </summary>
-        /// <param name="document"></param>
-        /// <returns></returns>
+
+        /// <include file='XmlDocument.xml' path='docs/members[@name="Xml"]/Xml/*'/>
         public static string XmlDocument(this IDocument document)
         {
             XmlPacker packer = new XmlPacker();
@@ -22,11 +19,7 @@ namespace FreeTale.Pack.Xml
             return packer.ToString();
         }
 
-        /// <summary>
-        /// pack node to xml format
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
+        /// <include file='XmlDocument.xml' path='docs/members[@name="Xml"]/Xml/*'/>
         public static string XmlDocument(this INode node)
         {
             XmlPacker packer = new XmlPacker();

@@ -4,9 +4,7 @@ using System.Text;
 
 namespace FreeTale.Pack.Xml
 {
-    /// <summary>
-    /// unpack xml
-    /// </summary>
+    /// <include file='XmlDocument.xml' path='docs/members[@name="Xml"]/Xml/*'/>
     public class XmlUnpacker : Unpacker
     {
         
@@ -17,7 +15,6 @@ namespace FreeTale.Pack.Xml
                 throw new FormatException();
             if (Peek() == '?')
             {
-                
                 ReadUntil('>'); //skip xml header
             }
             SkipWhiteSpace();
@@ -27,6 +24,7 @@ namespace FreeTale.Pack.Xml
 
         /// <summary>
         /// read node . "&lt;name&gt;" position at n
+        
         /// </summary>
         /// <returns></returns>
         protected Node ReadNode()
