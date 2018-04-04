@@ -4,6 +4,7 @@ c# serialize library support read/write/convert to other format
 # Current readable
 * JSON
 * INI
+* XML
 
 # Used
 
@@ -50,7 +51,3 @@ extend from `INode` `IDocument` `Unpacker` choose best for your format
 Code is not well test
 
 Default value is `null` use carefully
-
-TODO
-
-support for XML
