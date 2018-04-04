@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 
 namespace FreeTale.Pack.Xml
@@ -7,7 +8,22 @@ namespace FreeTale.Pack.Xml
     /// <include file='XmlDocument.xml' path='docs/members[@name="Xml"]/Xml/*'/>
     public class XmlUnpacker : Unpacker
     {
-        
+        public new NameValueCollection EscapeList;
+
+        public override void ResetEscape()
+        {
+            EscapeChar = '&';
+            UnicodeEscape = '#';
+            EscapeList = new NameValueCollection()
+            {
+                {"lt","<" },
+                {"gt" , ">" },
+                {"amp","&" },
+                {"apos","'" },
+                { "quot","\""},
+            };
+        }
+
         public Document Parse()
         {
             Document document = new Document();
@@ -162,6 +178,35 @@ namespace FreeTale.Pack.Xml
             value = value.Replace('\n', ' ');
             value = value.Replace("  ", " "); // remove double writespace
             return new Writable(value);
+        }
+
+        public override string ReadEscape()
+        {
+            char c = Peek();
+            bool asUnicode = false;
+            if(c == UnicodeEscape)
+            {
+                Read();
+                asUnicode = true;
+            }
+            string escape = ReadUntil(';');
+            Read(); // skip ;
+            if (asUnicode)
+            {
+                bool isHex = false;
+                foreach (var item in escape)
+                {
+                    if (!char.IsDigit(item))
+                        isHex = true;
+                }
+                int code;
+                if (isHex)
+                    code = int.Parse(escape, System.Globalization.NumberStyles.HexNumber);
+                else
+                    code = int.Parse(escape);
+                return ((char)code).ToString();
+            }
+            return EscapeList[escape];
         }
     }
 }

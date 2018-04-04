@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 
 namespace FreeTale.Pack
@@ -44,22 +45,43 @@ namespace FreeTale.Pack
         public bool IsLast => Position + 2 == input.Length;
 
         /// <summary>
+        /// begin escape stage when escape char trigger
+        /// </summary>
+        public char EscapeChar = '\\';
+
+        /// <summary>
+        /// escape char config
+        /// </summary>
+        public Dictionary<char, string> EscapeList;
+
+        /// <summary>
+        /// char following escape char detect as unicode escape
+        /// </summary>
+        public char UnicodeEscape = 'u';
+
+        /// <summary>
         /// indent of line has successful read?
         /// </summary>
         protected bool ReadIndent;
+
+
 
         #endregion
 
         public Unpacker()
         {
             Reset();
+            ResetEscape();
         }
 
         public Unpacker(string input)
         {
             Reset();
             this.input = input;
+            ResetEscape();
         }
+
+        
 
         /// <summary>
         /// prepare input and randy to process 
@@ -72,6 +94,8 @@ namespace FreeTale.Pack
             
         }
 
+
+
         /// <summary>
         /// reset position to beginning of input
         /// </summary>
@@ -81,6 +105,26 @@ namespace FreeTale.Pack
             LineCount = 1;
             CollumCount = 1;
             Indent = 0;
+        }
+
+        /// <summary>
+        /// reset <see cref="EscapeChar"/> <see cref="EscapeList"/> <see cref="UnicodeEscape"/> to defualt
+        /// </summary>
+        public virtual void ResetEscape()
+        {
+            EscapeChar = '\\';
+            EscapeList = new Dictionary<char, string>
+            {
+                { '"', "\"" },
+                { '\\', "\\" },
+                { '/', "/" },
+                { 'b', "\b" },
+                {'f', "\f"},
+                {'n', "\n" },
+                {'r', "\r" },
+                { 't', "\t" },
+            };
+            UnicodeEscape = 'u';
         }
 
         /// <summary>
@@ -135,7 +179,7 @@ namespace FreeTale.Pack
         /// read from current position to new line or end of input
         /// </summary>
         /// <returns>string exclude new line char</returns>
-        public string ReadLine()
+        public virtual string ReadLine()
         {
             string result = ReadUntil('\n');
             if(!IsLast)
@@ -217,62 +261,31 @@ namespace FreeTale.Pack
 
 
         /// <summary>
-        /// read string inside quote with defualt string format (json string)
+        /// read string inside sigle or double quote with defualt string format (json string)
         /// </summary>
         /// <returns>string with out quote</returns>
-        public string ReadQuoteString()
+        public virtual string ReadQuoteString()
         {
             char c = Read();
-            if (c != '"')
+            char quote;
+            if (c != '"' && c != '\'') 
                 throw new FormatException("Quote string must begin with \" ");
+            quote = c;
             bool escape = false;
             StringBuilder sb = new StringBuilder();
 
             while (true)
             {
                 c = Read();
-                if (!escape && c == '"')
+                if (!escape && c == quote)
                     break;
-                if (!escape && c == '\\')
+                if (!escape && c == EscapeChar)
                 {
                     escape = true;
                 }
                 else if (escape)
                 {
-                    switch (c)
-                    {
-                        case '"':
-                            sb.Append('"');
-                            break;
-                        case '\\':
-                            sb.Append(@"\");
-                            break;
-                        case '/':
-                            sb.Append(@"/");
-                            break;
-                        case 'b':
-                            sb.Append("\b");
-                            break;
-                        case 'f':
-                            sb.Append('\f');
-                            break;
-                        case 'n':
-                            sb.Append('\n');
-                            break;
-                        case 'r':
-                            sb.Append('\r');
-                            break;
-                        case 't':
-                            sb.Append('\t');
-                            break;
-                        case 'u':
-                            int code = int.Parse(ReadString(4),System.Globalization.NumberStyles.HexNumber);
-                            sb.Append((char)code);
-                            break;
-                        default:
-                            throw new FormatException(string.Format("escape character '{0}' invalid", c));
-                            break;
-                    }
+                    sb.Append(ReadEscape());
                     escape = false;
                 }
                 else
@@ -284,11 +297,11 @@ namespace FreeTale.Pack
         }
 
         /// <summary>
-        /// read writable value. Detect quote string integer floating-point true/false null
+        /// read writable value. Detect quoteString integer floating-point true/false null
         /// not detect bool if set as Yes/n 
         /// </summary>
         /// <returns>writeable contains value</returns>
-        public Writable ReadWritable()
+        public virtual Writable ReadWritable()
         {
             char c = char.ToLower(Peek());
             if(c == 'n')
@@ -310,7 +323,7 @@ namespace FreeTale.Pack
         /// </summary>
         /// <returns>boolean contain</returns>
         /// <exception cref="FormatException">if current text is not 'true/fasle/yes/n'</exception>
-        public bool ReadBool()
+        public virtual bool ReadBool()
         {
             string current = ReadString();
             current = current.ToLower();
@@ -333,7 +346,7 @@ namespace FreeTale.Pack
         /// read number as writable. number may be int or double or format if following format(ilfdm)
         /// </summary>
         /// <returns></returns>
-        public Writable ReadNumber()
+        public virtual Writable ReadNumber()
         {
             bool dotable = true; //found .
             bool eable = true; //found e
@@ -370,7 +383,7 @@ namespace FreeTale.Pack
                 }
                 else
                 {
-                    throw new FormatException(string.Format("invalid '{0}' char.", c));
+                    throw new FormatException(string.Format("invalid number format '{0}' .", c));
                 }
 
                 minusable = false;
@@ -379,7 +392,9 @@ namespace FreeTale.Pack
             string num = sb.ToString();
             if(flag == ' ' && dotable && eable)
             {
-                return int.Parse(num);
+                if (int.TryParse(num, out int result))
+                    return result;
+                return long.Parse(num);
             }
             if(flag == ' ')
             {
@@ -405,7 +420,7 @@ namespace FreeTale.Pack
         /// </summary>
         /// <returns>true string is "null"</returns>
         /// <exception cref="FormatException">current text is not null</exception>
-        public bool ReadNull()
+        public virtual bool ReadNull()
         {
             string current = ReadString();
             current = current.ToLower();
@@ -422,7 +437,7 @@ namespace FreeTale.Pack
         /// <example>
         /// "012345678" position at 0 ReadUntil('6') return 012345 and set position at 6
         /// </example>
-        public string ReadUntil(char breakchar)
+        public virtual string ReadUntil(char breakchar)
         {
             int beginPosition = Position;
             char c = Peek();
@@ -431,6 +446,27 @@ namespace FreeTale.Pack
                 c = ReadNext();
             }
             return input.Substring(beginPosition, Position - beginPosition);
+        }
+
+        /// <summary>
+        /// call detect escape char
+        /// </summary>
+        /// <returns>string in <see cref="EscapeList"/></returns>
+        /// <exception cref="FormatException">escape char not found</exception>
+        public virtual string ReadEscape()
+        {
+            char c = Read();
+            if (c == UnicodeEscape)
+            {
+                string hex = ReadString(4);
+                int code = int.Parse(hex, System.Globalization.NumberStyles.HexNumber);
+                return ((char)code).ToString();
+            }
+            else if(EscapeList.ContainsKey(c))
+            {
+                return EscapeList[c];
+            }
+            throw new FormatException("escape character");
         }
 
         /// <summary>
