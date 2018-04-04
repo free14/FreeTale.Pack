@@ -12,13 +12,31 @@ namespace FreeTale.Pack.Xml
         public string Encoding = "UTF-8";
 
         /// <summary>
+        /// skip node with name = null? or output as <see cref="DummyName"/>
+        /// </summary>
+        public bool SkipNoName = false;
+
+        /// <summary>
+        /// name insert when <see cref="INode.Name"/> is null
+        /// </summary>
+        public string DummyName = "node";
+
+        /// <summary>
         /// parse document to xml
         /// </summary>
         /// <param name="document"></param>
         public void Parse(IDocument document)
         {
-            WriteLine(string.Format("<?xml version={0} encoding={1}?>", document.Version.ToQuoteString(), '"' + Encoding + '"'));
-            WriteNode(document);
+            Write("<?xml");
+            if (document.Version != null)
+                Write(" version=" + document.Version.ToQuoteString());
+            if (Encoding != null)
+                Write(" encoding=\"" + Encoding + "\"");
+            WriteLine("?>");
+            foreach (var item in document.SubNode)
+            {
+                WriteNode(item);
+            }
         }
 
         /// <summary>
@@ -36,8 +54,13 @@ namespace FreeTale.Pack.Xml
         /// <param name="node"></param>
         protected void WriteNode(INode node)
         {
+            if (SkipNoName && node.Name == null)
+                return;
             Write("<");
-            Write(node.Name.ToString());
+            if (node.Name == null)
+                Write(DummyName);
+            else
+                Write(node.Name.ToString());
             if (node.Attribute != null)
                 WriteAttribute(node.Attribute.ToArray());
             if(node.SubNode == null && node.Value == null)
@@ -62,9 +85,12 @@ namespace FreeTale.Pack.Xml
                     WriteValue(node.Value);
                 }
                 Indent--;
-                Write("<");
-                Write(node.Name);
-                Write(">");
+                Write("</");
+                if (node.Name == null)
+                    Write(DummyName);
+                else
+                    Write(node.Name.ToString());
+                WriteLine(">");
             }
         }
 
@@ -85,7 +111,7 @@ namespace FreeTale.Pack.Xml
 
         protected void WriteValue(Writable value)
         {
-            Write(value);
+            WriteLine(value.ToString());
         }
     }
 }

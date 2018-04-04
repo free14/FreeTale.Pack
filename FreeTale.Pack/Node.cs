@@ -109,6 +109,13 @@ namespace FreeTale.Pack
             }
         }
 
+        public void AddAttribute(Attribute attr)
+        {
+            if (Attribute == null)
+                Attribute = new List<IAttribute>();
+            Attribute.Add(attr);
+        }
+
         public void AddAttribute(Writable name, Writable value)
         {
             if (Attribute == null)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using FreeTale.Pack.Xml;
 
 namespace FreeTale.Pack.TestConsole
 {
@@ -25,6 +26,14 @@ namespace FreeTale.Pack.TestConsole
             Debug.WriteLine(node.ToString());
             Common result = reflection.CreateObject<Common>(node);
             Debug.WriteLine("value {0} {1} {2}", result.A, result.B, result.C);
+
+            string xml = "<?xml version=\"1.0\"?><name>value</name>";
+            XmlPacker packer = new XmlPacker();
+            packer.IgnoreWhitespace = true;
+            packer.Parse(node);
+            string packed = packer.ToString();
+            
+            Debug.WriteLine(packed);
         }
     }
 }

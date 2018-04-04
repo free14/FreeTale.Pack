@@ -15,8 +15,24 @@ namespace FreeTale.Pack.Xml
                 throw new FormatException();
             if (Peek() == '?')
             {
-                ReadUntil('>'); //skip xml header
+                Read();
+                string name = ReadString(); // xml
                 SkipWhiteSpace();
+                while (Peek() != '?')
+                {
+                    Attribute attr = ReadAttribute();
+                    if (attr.Name.IsString) {
+                        if (((string)attr.Name.Value).ToLower() == "version")
+                            document.Version = attr.Value;
+                    }
+
+                    document.AddAttribute(attr);
+                    SkipWhiteSpace();
+                }
+                ReadUntil('>'); //skip xml header
+                Read();
+                SkipWhiteSpace();
+                Read(); //skip <
                 document.Add(ReadNode());
             }
             else
@@ -28,7 +44,6 @@ namespace FreeTale.Pack.Xml
 
         /// <summary>
         /// read node . "&lt;name&gt;" position at n
-        
         /// </summary>
         /// <returns></returns>
         protected Node ReadNode()
@@ -128,7 +143,7 @@ namespace FreeTale.Pack.Xml
         /// read name=value attrbute
         /// </summary>
         /// <returns></returns>
-        protected Attribute ReadAttribute()
+        public Attribute ReadAttribute()
         {
             Writable name, value;
             name = new Writable(ReadString());

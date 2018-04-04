@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <docs>
-  <member name="Xml">
+  <members name="Xml">
     <Xml>
       <summary>
         xml serlializer
@@ -45,5 +45,5 @@
         </list>
       </summary>
     </Xml>
-  </member>
+  </members>
 </docs>

@@ -12,4 +12,12 @@
     <DocumentationFile>bin\Release\netstandard2.0\FreeTale.Pack.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Xml\XmlDocument.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Xml\XmlDocument.xml" />
+  </ItemGroup>
+
 </Project>

@@ -15,21 +15,26 @@ namespace FreeTale.Pack.Test
         Node node;
 
         XmlUnpacker unpacker;
+
+        Document document;
         [TestInitialize]
         public void Init()
         {
             node = new Node();
             node.Add("name", "value");
-            unpacker = new XmlUnpacker();
-            unpacker.Prepare(xml);
+            document = new Document();
+            document.Version = "1.0";
+            document.Add("name", "value");
         }
 
         [TestMethod]
         public void XmlUnpack()
         {
+            unpacker = new XmlUnpacker();
+            unpacker.Prepare(xml);
             Node current = unpacker.Parse();
             //Assert.AreEqual(current.ToString(), "");
-            Assert.AreEqual(current.SubNode[0].Name.ToString(), "name");
+            Assert.AreEqual(current[0].Name.ToString(), "name");
         }
 
         [TestMethod]
@@ -37,7 +42,8 @@ namespace FreeTale.Pack.Test
         {
             XmlPacker xmlPacker = new XmlPacker();
             xmlPacker.IgnoreWhitespace = true;
-            xmlPacker.Parse(node);
+            xmlPacker.Encoding = null;
+            xmlPacker.Parse(document);
             string result = xmlPacker.ToString();
             Assert.AreEqual(result,xml);
         }
